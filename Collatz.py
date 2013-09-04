@@ -64,3 +64,72 @@ def collatz_solve (r, w) :
     for t in collatz_read(r) :
         v = collatz_eval(t)
         collatz_print(w, t, v)
+
+def find_cycle_length(n) :
+    """
+    going to  calculate the length of a cycle
+    """
+
+    num_cycles = 1
+
+    while( n != 1) :
+        if((n % 2) == 0) :
+            n = n / 2
+
+        else :
+            n = (3 * n) + 1
+
+        num_cycles += 1
+
+    return num_cycles
+
+
+def find_starting_point(i, j) :
+    """
+    given 2 interger, this method 
+    returns the smallest of the 2
+    """
+    start = i
+
+    if(j <= i) : 
+        start = j
+
+    return start
+
+def find_ending_point(i, j) : 
+    """
+    given 2 integers, this method
+    returns the largest of the 2
+    """
+    end = j
+
+    if(i >= j) :
+        end = i
+
+    return end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
