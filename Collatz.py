@@ -6,6 +6,14 @@
 # Glenn P. Downing
 # ---------------------------
 
+
+
+
+"""
+global array to use as a cache
+"""
+cache = [0] * 1000000
+
 # ------------
 # collatz_read
 # ------------
@@ -81,19 +89,23 @@ def find_cycle_length(n) :
     """
     going to  calculate the length of a cycle
     """
+    global cache 
 
-    num_cycles = 1
 
-    while( n != 1) :
-        if((n % 2) == 0) :
-            n = n / 2
+    if(n == 1) :
+        return 1
 
-        else :
-            n = (3 * n) + 1
+    if(n < 1000000 and cache[n] != 0) :
+        return cache[n]
 
-        num_cycles += 1
+    num = check_even_odd(n)
+    cycle_length = 1 + find_cycle_length(num)
 
-    return num_cycles
+
+    if(n < 1000000) :
+        cache[n] = cycle_length
+
+    return cycle_length
 
 
 def find_starting_point(i, j) :
@@ -119,6 +131,15 @@ def find_ending_point(i, j) :
         end = i
 
     return end
+
+def check_even_odd(i) :
+    if((i % 2) == 0) :
+        i = i / 2
+
+    else :
+        i = (3 *i) + 1
+
+    return i
 
 
 
