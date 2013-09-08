@@ -6,7 +6,8 @@
 # Glenn P. Downing
 # ---------------------------
 
-
+import random
+import StringIO
 
 
 """
@@ -140,6 +141,24 @@ def check_even_odd(i) :
         i = (3 *i) + 1
 
     return i
+
+def acceptance_test_gen() :
+    
+    w = StringIO.StringIO()
+
+    for x in range(1000) :
+        first = random.randint(1, 1000000)
+        second = random.randint(1, 1000000)
+
+        if(first == second) :
+            second = random.randint(1, 1000000)
+
+        line = str(first) + " " + str(second)
+
+        print line
+
+
+
 
 
 
