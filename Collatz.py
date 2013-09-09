@@ -44,12 +44,21 @@ def collatz_eval ((i, j)) :
     start = find_starting_point(i, j)
     end = find_ending_point(i, j)
     max = 0
+    mid_end = end / 2
 
-    for num in range (start, end) : 
-        cycle = find_cycle_length(num)
+    if(start < mid_end) :
+        for num in range (mid_end, end + 1) :
+            cycle = find_cycle_length(num)
 
-        if(cycle > max) : 
-            max = cycle
+            if(cycle > max) : 
+                max = cycle
+
+    else :
+        for num in range (start, end + 1) : 
+            cycle = find_cycle_length(num)
+
+            if(cycle > max) : 
+                max = cycle
 
     # v = 1
     # assert v > 0
@@ -90,8 +99,9 @@ def find_cycle_length(n) :
     """
     going to  calculate the length of a cycle
     """
-    global cache 
+    assert n > 0
 
+    global cache 
 
     if(n == 1) :
         return 1
@@ -107,7 +117,6 @@ def find_cycle_length(n) :
         cache[n] = cycle_length
 
     return cycle_length
-
 
 def find_starting_point(i, j) :
     """
@@ -134,6 +143,11 @@ def find_ending_point(i, j) :
     return end
 
 def check_even_odd(i) :
+    """
+    checking to see whether the number
+    passed in is even or odd, then computing
+    the new number
+    """
     if((i % 2) == 0) :
         i = i / 2
 
@@ -143,8 +157,10 @@ def check_even_odd(i) :
     return i
 
 def acceptance_test_gen() :
-    
-    w = StringIO.StringIO()
+    """
+    creating acceptance tests by generating
+    random numbers and printing the pairs
+    """
 
     for x in range(1000) :
         first = random.randint(1, 1000000)
