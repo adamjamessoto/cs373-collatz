@@ -23,7 +23,7 @@ import unittest
 from Collatz import (
     collatz_read, collatz_eval, collatz_print, collatz_solve,
     find_cycle_length, find_starting_point, find_ending_point,
-    check_even_odd, acceptance_test_gen )
+    check_even_odd, acceptance_test_gen)
 
 # -----------
 # TestCollatz
@@ -200,6 +200,9 @@ class TestCollatz (unittest.TestCase) :
 
     # def test_acceptance_test_gen(self) : 
     #     acceptance_test_gen()
+
+    # def test_meta_cache_gen (self) :
+    #     meta_cache_gen()
 
 # ----
 # main
