@@ -91,6 +91,11 @@ def collatz_solve (r, w) :
     r is a reader
     w is a writer
     """
+
+    for i in range (1, 50000) :
+        cache[i] = find_cycle_length(i)
+
+
     for t in collatz_read(r) :
         v = collatz_eval(t)
         collatz_print(w, t, v)
@@ -109,8 +114,17 @@ def find_cycle_length(n) :
     if(n < 1000000 and cache[n] != 0) :
         return cache[n]
 
-    num = check_even_odd(n)
-    cycle_length = 1 + find_cycle_length(num)
+    
+    if((n % 2) == 0) :
+        num = n / 2
+        cycle_length = 1 + find_cycle_length(num)
+
+    else :
+        num = int((1.5 * n) + .5)
+        cycle_length = 2 + find_cycle_length(num)
+    
+    # num = check_even_odd(n)
+    # cycle_length = 1 + find_cycle_length(num)
 
 
     if(n < 1000000) :
