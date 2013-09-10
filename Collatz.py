@@ -47,7 +47,7 @@ def collatz_eval ((i, j)) :
     mid_end = end / 2
 
     if(start < mid_end) :
-        for num in range (mid_end, end + 1) :
+        for num in range (start, end + 1) :
             cycle = find_cycle_length(num)
 
             if(cycle > max) : 
@@ -92,7 +92,7 @@ def collatz_solve (r, w) :
     w is a writer
     """
 
-    for i in range (1, 50000) :
+    for i in range (1, 2000) :
         cache[i] = find_cycle_length(i)
 
 
@@ -116,8 +116,12 @@ def find_cycle_length(n) :
 
     
     if((n % 2) == 0) :
-        num = n / 2
+        num = n >> 1
         cycle_length = 1 + find_cycle_length(num)
+
+    elif(n % 8 == 5) :
+        num = 3 * ((n -5) / 8) + 2
+        cycle_length = 4 +  find_cycle_length(num)
 
     else :
         num = int((1.5 * n) + .5)
@@ -176,7 +180,7 @@ def acceptance_test_gen() :
     random numbers and printing the pairs
     """
 
-    for x in range(1000) :
+    for x in range(1500) :
         first = random.randint(1, 1000000)
         second = random.randint(1, 1000000)
 
@@ -186,32 +190,3 @@ def acceptance_test_gen() :
         line = str(first) + " " + str(second)
 
         print line
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
