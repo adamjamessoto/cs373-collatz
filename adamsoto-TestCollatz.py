@@ -217,8 +217,8 @@ class TestCollatz (unittest.TestCase) :
         v = check_even_odd(1000)
         self.assert_(v == 500)
 
-    # def test_acceptance_test_gen(self) : 
-    #     acceptance_test_gen()
+    def test_acceptance_test_gen(self) : 
+        acceptance_test_gen()
 
 
 # ----
