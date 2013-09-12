@@ -41,10 +41,23 @@ def collatz_eval ((i, j)) :
     j is the end       of the range, inclusive
     return the max cycle length in the range [i, j]
     """
-    start = find_starting_point(i, j)
-    end = find_ending_point(i, j)
+
+    if(find_starting_point(i, j)) :
+        start = i
+        end = j
+
+    else :
+        start = j
+        end = i
+
     max = 0
     mid_end = end >> 1
+
+    """
+    Using the fact that there are two integers, b and e, 
+    let m = e / 2. If b < m, then 
+    max_cycle_length(b, e) = max_cycle_length(m, e)
+    """
 
     if(start < mid_end) :
         for num in range (start, end + 1) :
@@ -59,10 +72,6 @@ def collatz_eval ((i, j)) :
 
             if(cycle > max) : 
                 max = cycle
-
-    # v = 1
-    # assert v > 0
-    # return v
 
     assert max > 0
     return max
@@ -92,10 +101,6 @@ def collatz_solve (r, w) :
     w is a writer
     """
 
-    # for i in range (1, 2000) :
-    #     cache[i] = find_cycle_length(i)
-
-
     for t in collatz_read(r) :
         v = collatz_eval(t)
         collatz_print(w, t, v)
@@ -103,6 +108,9 @@ def collatz_solve (r, w) :
 def find_cycle_length(n) :
     """
     going to  calculate the length of a cycle
+
+    n is odd: (3 * n + 1) / 2 = n + (n >> 1) + 1
+    n is even: (n / 2) = (n >> 1)
     """
     assert n > 0
 
@@ -123,10 +131,6 @@ def find_cycle_length(n) :
         num = n + (n >> 1) + 1
         cycle_length = 2 + find_cycle_length(num)
     
-    # num = check_even_odd(n)
-    # cycle_length = 1 + find_cycle_length(num)
-
-
     if(n < 1000000) :
         cache[n] = cycle_length
 
@@ -135,42 +139,10 @@ def find_cycle_length(n) :
     return cycle_length
 
 def find_starting_point(i, j) :
-    """
-    given 2 interger, this method 
-    returns the smallest of the 2
-    """
-    start = i
+    if(i <= j) :
+        return True
 
-    if(j <= i) : 
-        start = j
-
-    return start
-
-def find_ending_point(i, j) : 
-    """
-    given 2 integers, this method
-    returns the largest of the 2
-    """
-    end = j
-
-    if(i >= j) :
-        end = i
-
-    return end
-
-def check_even_odd(i) :
-    """
-    checking to see whether the number
-    passed in is even or odd, then computing
-    the new number
-    """
-    if((i % 2) == 0) :
-        i = i / 2
-
-    else :
-        i = (3 *i) + 1
-
-    return i
+    return False 
 
 def acceptance_test_gen() :
     """
@@ -188,8 +160,4 @@ def acceptance_test_gen() :
         line = str(first) + " " + str(second)
 
         print line
-
-def create_meta_cache() :
-    for x in range (1, 1000000) :
-        length = find_cycle_length(x)
-        print length
+        
